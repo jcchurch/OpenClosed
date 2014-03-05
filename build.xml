@@ -1,0 +1,45 @@
+<project name="Cash Register" default="compile" basedir=".">
+    <description>
+        This is a very simple cash register program
+        used to demonstrate the Open-Closed principle.
+    </description>
+
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <property name="classes" location="${build}/classes"/>
+
+    <path id="test.classpath">
+        <pathelement location="${classes}" />
+        <pathelement location="/opt/jdk1.7.0_51/junit-4.11.jar" />
+        <pathelement location="/opt/jdk1.7.0_51/hamcrest-core-1.3.jar" />
+    </path>
+
+    <path id="classpath">
+        <pathelement location="${classes}" />
+    </path>
+
+    <target name="init" description="Creates the directory structure">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the build structure used by compile -->
+        <mkdir dir="${build}"/>
+        <mkdir dir="${classes}"/>
+    </target>
+
+    <target name="clean" description="clean up" >
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build}"/>
+    </target>
+
+    <target name="compile" depends="init" description="Generate the classes">
+        <javac srcdir="${src}" destdir="${classes}" classpathref="test.classpath"/>
+    </target>
+
+    <target name="test" description="Run the junit tests">
+        <junit fork="yes" haltonfailure="yes">
+            <test name="CartTest" />
+            <formatter type="plain" usefile="false" />
+            <classpath refid="test.classpath" />
+        </junit>
+    </target>
+</project>
