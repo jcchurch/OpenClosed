@@ -2,6 +2,9 @@
     <description>
         This is a very simple cash register program
         used to demonstrate the Open-Closed principle.
+
+        You will probably have to update the locations
+        of junit and hamcrest.
     </description>
 
     <property name="src" location="src"/>

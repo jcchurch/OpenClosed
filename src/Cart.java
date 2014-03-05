@@ -2,16 +2,11 @@ import java.util.ArrayList;
 
 public class Cart {
    private ArrayList<Item> myItems;
-   private IPriceRule[] PriceRules;
+   private PriceContext pc;
 
    public Cart() {
        myItems = new ArrayList<Item>();
-
-       PriceRules = new IPriceRule[]{
-                      new QuantityPriceRule(),
-                      new WeightPriceRule(),
-                      new TshirtPriceRule()
-                    };
+       pc = new PriceContext();
    }
 
    public void add(Item thisItem) {
@@ -25,11 +20,7 @@ public class Cart {
        int total = 0;
 
        for (Item thisItem : myItems) {
-           for (IPriceRule ipr : PriceRules) {
-               if (ipr.isMatch(thisItem)) {
-                   total += ipr.total(thisItem);
-               }
-           }
+           total += pc.total(thisItem);
        }
 
        return total;
